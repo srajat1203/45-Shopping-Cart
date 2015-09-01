@@ -3,6 +3,9 @@
 import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +13,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Cart;
 import model.User;
+import customTools.DBUtil;
 
 /**
- * Servlet implementation class Addtocart
+ * Servlet implementation class Confirm
  */
-@WebServlet("/Addtocart")
-public class Addtocart extends HttpServlet {
+@WebServlet("/Confirm")
+public class Confirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Addtocart() {
+    public Confirm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +39,41 @@ public class Addtocart extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
+		//List<Prod> items = (List<Prod>) session.getAttribute("items");
+		User curuser = (User) session.getAttribute("curuser");
+		String uemail = curuser.getEmail();
+		
+		
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		EntityTransaction trans = em.getTransaction();
+		
+		String qString = "SELECT c FROM Cart c where c.uemail = '" + uemail + "' and c.bought = 0";
+		TypedQuery<Cart> q =  em.createQuery(qString, Cart.class);
+		List<Cart> cartitems = q.getResultList();
+		
+		trans.begin(); 
+		try {
+			for(Cart cur: cartitems)
+			{	
+				cur.setBought(1);
+				em.merge(cur);
+			}	
+		trans.commit();
+		} catch (Exception e) {
+		System.out.println(e);
+		trans.rollback();
+		} finally {
+		em.close();
+		}
+		
 	
 		
-		double price = (Double) session.getAttribute("cprice");
-		String name = (String) session.getAttribute("cname");
-		String temp_quant = request.getParameter("quantity");
-		int quant = Integer.parseInt(temp_quant);
 		
 		
-		Prod prod = new Prod();
-		prod.setName(name);
-		prod.setPrice(price);
-		prod.setQuant(quant);
 		
-		List<Prod> items = (List<Prod>) session.getAttribute("items");
-		items.add(prod);
 		
-		response.setContentType("text/html");		
-		
-		getServletContext().getRequestDispatcher("/ProductList")
+		response.setContentType("text/html");	
+		getServletContext().getRequestDispatcher("/ConfirmDisp.jsp")
 		.forward(request, response);
 	}
 

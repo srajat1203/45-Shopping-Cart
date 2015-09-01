@@ -12,13 +12,10 @@
 
 <div class="container">
   <div class="jumbotron">
-    <h1 align = "center">${name}</h1>      
-    <p>Price : ${price}</p>
-    <p>Genre : ${genre}</p>
+    <h1 align = "center">Order Confirmation</h1>      
+    <p align = "center">You order has been confirmed!</p>
   </div>
-    
-  ${message} 
-    
+  
 </div>
 
 </body>

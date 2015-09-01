@@ -16,9 +16,7 @@
     <li class="list-group-item">${plist}</li>
   </ul>
 
-<form action="Checkout" method = "post">
-    <button type="submit" class="btn btn-default">Checkout</button>
-</form>
+${message}
 
 </div>
 

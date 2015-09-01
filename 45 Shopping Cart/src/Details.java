@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Pdetail;
 import model.Product;
+import model.User;
 import customTools.DBUtil;
 
 /**
@@ -28,7 +29,8 @@ public class Details extends HttpServlet {
 	String name = "";
 	double price = 0.0;
 	String genre = "";
-	
+	String message = "";
+	String addToCart = "<form role=\"form\" action = \"Addtocart\" method = \"post\"> <div class=\"form-group\"> <label for=\"quantity\">Enter quantity:</label> <input type=\"number\" class=\"form-control\" id=\"quantity\" name=\"quantity\" placeholder=\"Enter a number\"> </div> <button type=\"submit\" class=\"btn btn-default\">Add to Cart</button> </form>";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -64,6 +66,12 @@ public class Details extends HttpServlet {
 		session.setAttribute("cprice", price);
 		
 		
+		User curuser = (User) session.getAttribute("curuser");
+		if(curuser != null)
+		{
+			message = addToCart;
+		}
+		
 		/*
 		try {
 			price = 0.0;
@@ -86,6 +94,7 @@ public class Details extends HttpServlet {
 		request.setAttribute("name", name);
 		request.setAttribute("price", price);
 		request.setAttribute("genre", genre);
+		request.setAttribute("message", message);
 		getServletContext().getRequestDispatcher("/DetailsDisp.jsp")
 		.forward(request, response);
 	}

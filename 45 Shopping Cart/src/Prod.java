@@ -4,12 +4,14 @@ public class Prod {
 	private String name;
 	private double price;
 	private int quant;
+	private String uemail;
 	
 	public Prod()
 	{
 		name = "";
 		price = 0.0;
 		quant = 0;
+		uemail = "";
 	}
 
 	public String getName() {
@@ -35,5 +37,15 @@ public class Prod {
 	public void setQuant(int quant) {
 		this.quant = quant;
 	}
+
+	public String getUemail() {
+		return uemail;
+	}
+
+	public void setUemail(String uemail) {
+		this.uemail = uemail;
+	}
+
+
 	
 }

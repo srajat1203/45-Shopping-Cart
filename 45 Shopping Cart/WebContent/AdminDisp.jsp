@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +12,28 @@
 <body>
 
 <div class="container">
-  <div class="jumbotron">
-    <h1 align = "center">${name}</h1>      
-    <p>Price : ${price}</p>
-    <p>Genre : ${genre}</p>
-  </div>
-    
-  ${message} 
-    
-</div>
+<h2>List of items</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      	<td>${iuemails}</td>
+        <td>${inames}</td>
+        <td>${iprices }</td>
+        <td>${iquants}</td>
+      </tr>
+    </tbody>
+  </table>
+
+ 
+
 
 </body>
 </html>

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * 
  */
 @Entity
-@Table(name="PDETAILS")
+@Table(name="PDETAILS", schema="TESTDB")
 @NamedQuery(name="Pdetail.findAll", query="SELECT p FROM Pdetail p")
 public class Pdetail implements Serializable {
 	private static final long serialVersionUID = 1L;

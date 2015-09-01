@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,7 @@
         <th>Price</th>
         <th>Quantity</th>
       </tr>
+  
     </thead>
     <tbody>
       <tr>
@@ -30,9 +32,16 @@
   </table>
 
   <ul class="list-group">
-    <li class="list-group-item" align = "right"> Total : ${sum}</li>
+    <li class="list-group-item"> Sub-Total : ${sum}</li>
+    <li class="list-group-item"> Tax : ${tax}</li>
+    <li class="list-group-item"> Total : ${total}</li>
   </ul>
 </div>
+
+   <br><br>
+   <form role="form" action="Confirm" method = "post">
+    <button type="submit" class="btn btn-default">Confirm Purchase </button>
+  </form>
 
 </body>
 </html>

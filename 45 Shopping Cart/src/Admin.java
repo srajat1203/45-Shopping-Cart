@@ -1,7 +1,6 @@
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,26 +11,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import customTools.DBUtil;
-import model.Product;
-import model.User;
+import model.Cart;
 
 /**
- * Servlet implementation class ProductList
+ * Servlet implementation class Admin
  */
-@WebServlet("/ProductList")
-public class ProductList extends HttpServlet {
+@WebServlet("/Admin")
+public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	String plist = "";
-	String goToCart = "<form action=\"Checkout\" method = \"post\"> <button type=\"submit\" class=\"btn btn-default\">Checkout</button> </form>";
-	String message = "";
+	String inames = "";
+	String iprices = "";
+	String iquants = "";
+	String iuemails = "";
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductList() {
+    public Admin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,29 +39,25 @@ public class ProductList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	
-		HttpSession session = request.getSession();
-		User curuser = (User) session.getAttribute("curuser");
-		if(curuser != null)
-		{
-			message = goToCart;
-		}
+		// TODO Auto-generated method stub
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
 		
-		String qString = "SELECT p FROM Product p";
-		TypedQuery<Product> q =  em.createQuery(qString, Product.class);
-		List<Product> products = q.getResultList();
+		String qString = "SELECT c FROM Cart c where c.bought = 1";
+		TypedQuery<Cart> q =  em.createQuery(qString, Cart.class);
+		List<Cart> doneitems = q.getResultList();
 		
 		try {
-			plist = "";
-			for (Product cur : products) {
 			
-				int id = (int) cur.getId();
-				String name = cur.getGame();
-				plist = plist + "<a href=\"Details?pid=" + id + "\">" + name + "</a><br><br>";
+			for (Cart cur : doneitems) {
+			
+				inames = inames + cur.getName() + "<br><br>";
+				iprices = iprices +  cur.getPrice() + "<br><br>"; 
+				iquants = iquants + cur.getQuant() + "<br><br>";
+				iuemails = iuemails + cur.getUemail() + "<br><br>";
+				
+				
 			}	
 			}catch (Exception e){
 				e.printStackTrace();
@@ -71,18 +66,21 @@ public class ProductList extends HttpServlet {
 			}
 		
 		
-		response.setContentType("text/html");
-		request.setAttribute("plist", plist);
-		request.setAttribute("message", message);
-		getServletContext().getRequestDispatcher("/ProductListDisp.jsp")
-		.forward(request, response);
 		
+		response.setContentType("text/html");		
+		request.setAttribute("inames", inames);
+		request.setAttribute("iprices", iprices);
+		request.setAttribute("iquants", iquants);
+		request.setAttribute("iuemails", iuemails);
+		getServletContext().getRequestDispatcher("/AdminDisp.jsp")
+		.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
