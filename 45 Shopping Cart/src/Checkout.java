@@ -53,7 +53,7 @@ public class Checkout extends HttpServlet {
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
-		
+		/*
 		trans.begin(); 
 		try {
 			for(Prod prod: items)
@@ -74,8 +74,25 @@ public class Checkout extends HttpServlet {
 		} finally {
 		//em.close();
 		}
+		*/
 		
 		
+		
+		/*
+		for(Prod prod: items)
+		{
+			Cart cartentry = new Cart();
+			cartentry.setName(prod.getName());
+			cartentry.setPrice(prod.getPrice());
+			cartentry.setQuant(prod.getQuant());
+			cartentry.setUemail(uemail);
+			cartentry.setBought(0);
+		
+			Utils<Cart> db = new Utils<Cart>();
+			db.insert(cartentry);
+			
+		}
+		*/
 		String qString = "SELECT c FROM Cart c where c.uemail = '" + uemail + "' and c.bought = 0";
 		TypedQuery<Cart> q =  em.createQuery(qString, Cart.class);
 		List<Cart> cartitems = q.getResultList();

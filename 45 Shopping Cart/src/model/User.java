@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -15,6 +16,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator (name = "UserSeq", sequenceName = "USERS_SEQ", allocationSize = 1, initialValue = 1)
+	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private long id;
 
 	private String email;

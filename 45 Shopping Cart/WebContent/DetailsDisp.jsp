@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</head>
-<body>
+<jsp:include page="header.jsp"/>
+<jsp:include page="navbar.jsp"/>
 
 <div class="container">
   <div class="jumbotron">
@@ -18,6 +9,35 @@
   </div>
     
   ${message} 
+  
+  <br><br><br><br><br>
+  <h2>Reviews</h2>
+ 	
+  ${form}
+  
+  <br><br>
+  
+   <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Comment</th>
+        <th>Rating</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${users}</td>
+        <td>${comts}</td>
+        <td>${sts}</td>
+        <td>${dates}</td>
+      </tr>
+      <tr>
+    </tbody>
+  </table>
+
+        
     
 </div>
 
