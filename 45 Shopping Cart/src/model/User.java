@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.math.BigDecimal;
+
 
 /**
  * The persistent class for the USERS database table.
@@ -20,6 +22,8 @@ public class User implements Serializable {
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private long id;
 
+	private double credit;
+
 	private String email;
 
 	private String name;
@@ -33,6 +37,14 @@ public class User implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public double getCredit() {
+		return this.credit;
+	}
+
+	public void setCredit(double credit) {
+		this.credit = credit;
 	}
 
 	public String getEmail() {
@@ -50,5 +62,7 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	
 
 }

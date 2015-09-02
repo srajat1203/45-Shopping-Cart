@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import customTools.DBUtil;
 import model.Cart;
+
+import model.User;
+import customTools.DBUtil;
 
 /**
  * Servlet implementation class Admin
@@ -62,9 +64,51 @@ public class Admin extends HttpServlet {
 			}catch (Exception e){
 				e.printStackTrace();
 			} finally {
-				em.close();
+				//em.close();
 			}
 		
+		
+		//master
+		
+		String cremail = request.getParameter("cremail");
+		String temp_amount = request.getParameter("amount");
+		double amount = 0.0;
+		if(temp_amount != null)
+		{
+			if(!temp_amount.isEmpty())
+			{
+				 amount = Double.parseDouble(temp_amount);
+			}
+		}
+		
+		if(cremail != null)
+		{
+			if(!cremail.isEmpty())
+			{
+
+				String qString2 = "SELECT u FROM User u where u.email = '" + cremail + "'";
+				TypedQuery<User> q2 =  em.createQuery(qString2, User.class);
+				User u = new User();
+				try{
+					u  = q2.getSingleResult();
+				}
+				catch(Exception e){
+					
+				}
+				finally{
+					em.close();
+				}
+				
+				if(u.getEmail() != null)
+				{
+					Utils<User> db = new Utils<User>();
+					u.setCredit(amount);
+					db.update(u);
+				}
+				
+				
+			}
+		}
 		
 		
 		response.setContentType("text/html");		
@@ -75,6 +119,9 @@ public class Admin extends HttpServlet {
 		getServletContext().getRequestDispatcher("/AdminDisp.jsp")
 		.forward(request, response);
 	}
+	
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

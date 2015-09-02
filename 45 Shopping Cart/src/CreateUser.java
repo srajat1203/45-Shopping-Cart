@@ -45,7 +45,7 @@ public class CreateUser extends HttpServlet {
 		User user = new User();
 		user.setName(pname);
 		user.setEmail(pemail);
-	
+		user.setCredit(0.0);
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
@@ -62,7 +62,7 @@ public class CreateUser extends HttpServlet {
 		
 		if(u.getEmail() == null)
 		{
-			System.out.println("making");
+			//System.out.println("making");
 			Utils<User> db = new Utils<User>();
 			db.insert(user);
 		}
