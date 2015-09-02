@@ -65,6 +65,7 @@ public class Admin extends HttpServlet {
 				em.close();
 			}
 		
+		//accept payment branch
 		
 		
 		response.setContentType("text/html");		
