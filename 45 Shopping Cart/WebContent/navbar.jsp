@@ -7,7 +7,7 @@
       <ul class="nav navbar-nav">
         <li class = "active"><a href="ProductList">Product List</a></li>
         <li class = "active"><a href="Signout">Sign Out</a></li>
-      
+      	${oHistory}
       </ul>
     </div>
   </div>

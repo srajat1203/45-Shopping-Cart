@@ -28,7 +28,9 @@ public class ProductList extends HttpServlet {
 	String plist = "";
 	String goToCart = "<form action=\"Checkout\" method = \"post\"> <button type=\"submit\" class=\"btn btn-default\">Checkout</button> </form>";
 	String message = "";
-    /**
+	String oHistory = "";
+	
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public ProductList() {
@@ -48,6 +50,8 @@ public class ProductList extends HttpServlet {
 		if(curuser != null)
 		{
 			message = goToCart;
+			oHistory = "<li class = \"active\"><a href=\"OrderHistory?curemail = " + curuser.getEmail() + "\">Order History</a></li>";
+			
 		}
 		
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -76,6 +80,7 @@ public class ProductList extends HttpServlet {
 		request.setAttribute("plist", plist);
 		request.setAttribute("message", message);
 		request.setAttribute("ps", products);
+		request.setAttribute("oHistory", oHistory);
 		getServletContext().getRequestDispatcher("/ProductListDisp.jsp")
 		.forward(request, response);
 		

@@ -43,6 +43,7 @@ public class Details extends HttpServlet {
 	String sts = "";
 	String dates = "";
 	String revs = "";
+	String oHistory = "";
 	/**
      * @see HttpServlet#HttpServlet()
      */
@@ -103,6 +104,8 @@ public class Details extends HttpServlet {
 			form_present = "<br> <form role=\"form\" action = \"Details\" method = \"post\"> <div class=\"form-group\"> <label for=\"comment\">Comment</label> <input type=\"text\" class=\"form-control\" id=\"comment\" name = \"comment\" placeholder=\"Enter comment\"> </div> <br> <select name=\"rating\"> <optgroup label=\"Rating\" > <option value=\"1\" >1</option> <option value=\"2\">2</option> <option value=\"3\">3</option> <option value=\"4\">4</option> <option value=\"5\">5</option> </optgroup> </select> <input type=\"hidden\" name=\"pid\" value="+pid+"> <br><br> <button type=\"submit\" class=\"btn btn-default\" >Submit</button> </form>";
 
 			form = form_present;
+			
+			oHistory = "<li class = \"active\"><a href=\"OrderHistory?curemail = " + curuser.getEmail() + "\">Order History</a></li>";
 		}
 		
 		
@@ -223,6 +226,9 @@ public class Details extends HttpServlet {
 		request.setAttribute("comts", comts);
 		request.setAttribute("sts", sts);
 		request.setAttribute("dates", dates);
+		
+		request.setAttribute("oHistory", oHistory);
+		
 		
 		getServletContext().getRequestDispatcher("/DetailsDisp.jsp")
 		.forward(request, response);
