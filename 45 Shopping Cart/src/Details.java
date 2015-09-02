@@ -84,6 +84,7 @@ public class Details extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User curuser = (User) session.getAttribute("curuser");
+		message = "";
 		if(curuser != null)
 		{
 			message = addToCart;
@@ -95,6 +96,7 @@ public class Details extends HttpServlet {
 	//Reviews
 		
 		//show form if signed in
+		form = "";
 		if(curuser != null)
 		{
 			String form_present = "";

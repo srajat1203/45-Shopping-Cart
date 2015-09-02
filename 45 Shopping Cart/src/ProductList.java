@@ -42,6 +42,7 @@ public class ProductList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	
+		message = "";
 		HttpSession session = request.getSession();
 		User curuser = (User) session.getAttribute("curuser");
 		if(curuser != null)
