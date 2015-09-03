@@ -102,8 +102,9 @@ public class Admin extends HttpServlet {
 				
 				if(u.getEmail() != null)
 				{
+					double curcredit = u.getCredit();
 					Utils<User> db = new Utils<User>();
-					u.setCredit(amount);
+					u.setCredit(amount + curcredit);
 					db.update(u);
 				}
 				

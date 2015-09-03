@@ -24,13 +24,14 @@
   <ul class="list-group">
     <li class="list-group-item"> Sub-Total : ${sum}</li>
     <li class="list-group-item"> Tax : ${tax}</li>
-    <li class="list-group-item"> Total : ${total}</li>
+    <li class="list-group-item"> Credit : ${credit}</li>
+    <li class="list-group-item"> Total : ${total}</li> 
   </ul>
 </div>
 
    <br><br>
-   <form role="form" action="Confirm" method = "post">
-    <button type="submit" class="btn btn-default">Confirm Purchase </button>
+   <form role="form" action="BillingDisp.jsp" method = "post">
+    <button type="submit" class="btn btn-default">Go to Billing</button>
   </form>
 
 </body>

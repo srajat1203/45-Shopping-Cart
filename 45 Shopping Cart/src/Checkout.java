@@ -32,6 +32,7 @@ public class Checkout extends HttpServlet {
     private double taxrate = 0.06;
     private double tax = 0.0;
     private double total = 0.0;
+    private double credit = 0.0;
 	/**
      * @see HttpServlet#HttpServlet()
      */
@@ -114,12 +115,29 @@ public class Checkout extends HttpServlet {
 			}catch (Exception e){
 				e.printStackTrace();
 			} finally {
-				em.close();
+				//em.close();
 			}
 		
 		
 		tax = sum*taxrate;
-		total = sum + tax;
+		
+		
+		String qString2 = "SELECT u FROM User u where u.email = '" + uemail + "'";
+		TypedQuery<User> q2 =  em.createQuery(qString2, User.class);
+		User user = new User();
+		try{
+			user = q2.getSingleResult();
+		}
+		catch(Exception e){
+			
+		}
+		finally {
+			em.close();
+		}
+		
+		credit = user.getCredit();
+		
+		total = sum + tax - credit;
 		
 		response.setContentType("text/html");		
 		request.setAttribute("inames", inames);
@@ -128,6 +146,7 @@ public class Checkout extends HttpServlet {
 		request.setAttribute("sum", sum);
 		request.setAttribute("tax", tax);
 		request.setAttribute("total", total);
+		request.setAttribute("credit", credit);
 		//request.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/CheckoutDisp.jsp")
 		.forward(request, response);
