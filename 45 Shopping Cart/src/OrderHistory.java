@@ -30,6 +30,9 @@ public class OrderHistory extends HttpServlet {
 	String iprices = "";
 	String iquants = "";
 	String iuemails = "";
+	
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -53,6 +56,7 @@ public class OrderHistory extends HttpServlet {
 		EntityTransaction trans = em.getTransaction();
 		
 		
+		String oHistory = "<li class = \"active\"><a href=\"OrderHistory?curemail = " + curuser.getEmail() + "\">Order History</a></li>";
 		
 		
 		String qString = "SELECT c FROM Cart c where c.uemail = '" + email + "' and c.bought = 1";
@@ -77,6 +81,7 @@ public class OrderHistory extends HttpServlet {
 		request.setAttribute("iprices", iprices);
 		request.setAttribute("iquants", iquants);
 		request.setAttribute("iuemails", iuemails);
+		request.setAttribute("oHistory", oHistory);
 		getServletContext().getRequestDispatcher("/OrderHistoryDisp.jsp")
 		.forward(request, response);
 	}
