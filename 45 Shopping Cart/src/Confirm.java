@@ -63,12 +63,31 @@ public class Confirm extends HttpServlet {
 		System.out.println(e);
 		trans.rollback();
 		} finally {
-		em.close();
+		//em.close();
 		}
 		
 	
 		
+
+		String qString2 = "SELECT u FROM User u where u.email = '" + uemail + "'";
+		TypedQuery<User> q2 =  em.createQuery(qString2, User.class);
+		User u = new User();
+		try{
+			u  = q2.getSingleResult();
+		}
+		catch(Exception e){
+			
+		}
+		finally{
+			em.close();
+		}
 		
+		if(u.getEmail() != null)
+		{
+			Utils<User> db = new Utils<User>();
+			u.setCredit(0);
+			db.update(u);
+		}
 		
 		
 		
